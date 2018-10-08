@@ -10,6 +10,8 @@ import android.widget.CompoundButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import static android.R.color.holo_red_dark;
+
 public class Pantalla1 extends AppCompatActivity {
 
     CheckBox chkBoxCycling;
