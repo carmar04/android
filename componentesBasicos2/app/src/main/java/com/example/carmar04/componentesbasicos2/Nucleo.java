@@ -27,6 +27,7 @@ public class Nucleo extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Nucleo.this, Pantalla2.class);
+                startActivity(intent);
             }
         });
     }

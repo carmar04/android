@@ -4,19 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
     tools:context=".Nucleo">
 
     <Button
         android:id="@+id/button1"
-        android:text="Ver las opciones"
-        android:layout_width="wrap_content"
+        android:text="Ver los radiobuttons"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <Button
         android:id="@+id/button2"
-        android:text="Ver los radioButtons"
-        android:layout_width="wrap_content"
+        android:text="Ver los checkbox"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content" />
-
 
 </LinearLayout>
