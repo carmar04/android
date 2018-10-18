@@ -2,6 +2,8 @@ package com.example.carmar04.spinnerclases;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Intent;
+import android.media.Image;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
@@ -21,8 +23,19 @@ public class Pantalla1 extends AppCompatActivity {
     public static Titular[] datos = new Titular[]{
             new Titular("Titulo 1", "Subtitulo largo 1",R.drawable.img1),
             new Titular("Titulo 2", "Subtitulo largo 1",R.drawable.img2),
+            new Titular("Titulo 3", "Subtitulo largo 1",R.drawable.img3),
+            new Titular("Titulo 1", "Subtitulo largo 1",R.drawable.img1),
+            new Titular("Titulo 2", "Subtitulo largo 1",R.drawable.img2),
+            new Titular("Titulo 3", "Subtitulo largo 1",R.drawable.img3),
+            new Titular("Titulo 1", "Subtitulo largo 1",R.drawable.img1),
+            new Titular("Titulo 2", "Subtitulo largo 1",R.drawable.img2),
             new Titular("Titulo 3", "Subtitulo largo 1",R.drawable.img3)
     };
+    static class ViewHolder {
+        TextView titulo;
+        TextView subtitulo;
+        ImageView image;
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,37 +50,21 @@ public class Pantalla1 extends AppCompatActivity {
                 String mensaje = "Titulo: " + datos[position].getTitulo() + " Subtitulo: " + datos[position].getSubtitulo();
                 Toast.makeText(getApplicationContext(), mensaje, Toast.LENGTH_SHORT).show();
 
+                Intent intent = new Intent(Pantalla1.this, Pantalla2.class);
+                Bundle bundle = new Bundle();
+
+                String titulo = String.valueOf(findViewById(position));
+                String subtitulo = String.valueOf(findViewById(position));
+                bundle.putString("titulo", titulo);
+                bundle.putString("subtitulo", subtitulo);
+                intent.putExtras(bundle);
+                startActivity(intent);
+
             }
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
         });
     }
- /*   class AdaptadorTitulares extends ArrayAdapter {
-
-        Activity context;
-
-        public AdaptadorTitulares(Activity context){
-            super(context, R.layout.listitem_titular);
-            this.context = context;
-        }
-        @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-        @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
-        public View getView(int i, View converView, ViewGroup parent){
-            LayoutInflater inflater = context.getLayoutInflater();
-            View item = inflater.inflate(R.layout.listitem_titular,null);
-
-            TextView lblTitulo = (TextView) item.findViewById(R.id.tvTitulo);
-            lblTitulo.setText(datos[i].getTitulo());
-
-            TextView lblSubtitulo = (TextView) item.findViewById(R.id.tvSubtitulo);
-            lblSubtitulo.setText(datos[i].getSubtitulo());
-
-            ImageView imagen = (ImageView) item.findViewById(R.id.tvImagen);
-            imagen.setBackground(getDrawable(datos[i].getDrawable()));
-
-            return item;
-        }
-    }*/
  class AdaptadorTitulares extends ArrayAdapter {
      Activity context;
 
@@ -79,19 +76,25 @@ public class Pantalla1 extends AppCompatActivity {
      @TargetApi(Build.VERSION_CODES.LOLLIPOP)
      @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
      public View getView(int position, View convertView, ViewGroup parent) {
-         LayoutInflater inflater = context.getLayoutInflater();
-         View item = inflater.inflate(R.layout.listitem_titular, null);
+         View item = convertView;
+         ViewHolder holder;
+         if(item == null) {
+             LayoutInflater inflater = context.getLayoutInflater();
+             item = inflater.inflate(R.layout.listitem_titular, null);
 
-         TextView lblTitulo = (TextView) item.findViewById(R.id.LblTitulo);
-         lblTitulo.setText(datos[position].getTitulo());
+             holder = new ViewHolder();
+             holder.titulo = (TextView)item.findViewById(R.id.LblTitulo);
+             holder.subtitulo = (TextView)item.findViewById(R.id.LblSubTitulo);
+             holder.image = (ImageView)item.findViewById(R.id.tvImagen);
 
-         TextView lblSubtitulo = (TextView) item.findViewById(R.id.LblSubTitulo);
-         lblSubtitulo.setText(datos[position].getSubtitulo());
-
-         ImageView imagen = (ImageView) item.findViewById(R.id.tvImagen);
-         imagen.setBackground(getDrawable(datos[position].getDrawable()));
-
-         return (item);
+             item.setTag(holder);
+         }else{
+             holder = (ViewHolder)item.getTag();
+         }
+         holder.titulo.setText(datos[position].getTitulo());
+         holder.subtitulo.setText(datos[position].getSubtitulo());
+         holder.image.setBackground(getDrawable(datos[position].getDrawable()));
+         return(item);
      }
  }
 }
