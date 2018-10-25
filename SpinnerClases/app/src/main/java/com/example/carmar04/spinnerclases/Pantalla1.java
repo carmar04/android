@@ -31,6 +31,7 @@ public class Pantalla1 extends AppCompatActivity {
             new Titular("Titulo 2", "Subtitulo largo 1",R.drawable.img2),
             new Titular("Titulo 3", "Subtitulo largo 1",R.drawable.img3)
     };
+    Titular tit;
     static class ViewHolder {
         TextView titulo;
         TextView subtitulo;
@@ -50,13 +51,15 @@ public class Pantalla1 extends AppCompatActivity {
                 String mensaje = "Titulo: " + datos[position].getTitulo() + " Subtitulo: " + datos[position].getSubtitulo();
                 Toast.makeText(getApplicationContext(), mensaje, Toast.LENGTH_SHORT).show();
 
+                tit = new Titular(
+                        datos[position].getTitulo(),
+                        datos[position].getSubtitulo(),
+                        datos[position].getDrawable());
                 Intent intent = new Intent(Pantalla1.this, Pantalla2.class);
                 Bundle bundle = new Bundle();
 
-                String titulo = String.valueOf(findViewById(position));
-                String subtitulo = String.valueOf(findViewById(position));
-                bundle.putString("titulo", titulo);
-                bundle.putString("subtitulo", subtitulo);
+                bundle.putSerializable("Objeto", tit);
+
                 intent.putExtras(bundle);
                 startActivity(intent);
 
@@ -95,6 +98,6 @@ public class Pantalla1 extends AppCompatActivity {
          holder.subtitulo.setText(datos[position].getSubtitulo());
          holder.image.setBackground(getDrawable(datos[position].getDrawable()));
          return(item);
-     }
- }
+        }
+    }
 }

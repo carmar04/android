@@ -1,6 +1,8 @@
 package com.example.carmar04.spinnerclases;
 
-public class Titular {
+import java.io.Serializable;
+
+public class Titular implements Serializable{
     private String titulo, subtitulo;
     private int drawable;
 
@@ -28,6 +30,9 @@ public class Titular {
     }
     public int getDrawable(){
         return this.drawable;
+    }
+    public String toString(){
+        return "Titulo" + this.titulo + ", Subtitulo: " + this.subtitulo;
     }
 
 }
