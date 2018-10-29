@@ -8,23 +8,32 @@ import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.AttributeSet;
 import android.view.View;
 import android.widget.Toast;
 
 public class Pantalla1 extends AppCompatActivity {
+
+    View view;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(new miDibujo(this));
         Toast.makeText(this, "Dibujar Circulo", Toast.LENGTH_SHORT).show();
+        //view = (View) findViewById(R.id.vista);
 
+        //reDraw(view);
     }
     class miDibujo extends View {
         private ShapeDrawable miDrawable;
 
         public miDibujo(Context c) {
             super(c);
+        }
+
+        public miDibujo(Context c, AttributeSet a){
+            super(c, a);
         }
 
         protected void onDraw(Canvas lienzo) {
@@ -81,17 +90,9 @@ public class Pantalla1 extends AppCompatActivity {
             lienzo.drawRect(850,100,950,850, mipincel2);
             lienzo.drawRect(100,100,200,950, mipincel2);
             lienzo.drawRect(100,850,950,950, mipincel2);
-
         }
-
-        public void haceCuadrado(int x, int y, int lado, Paint pincel, Canvas lienzo) {
-
-            lienzo.drawLine(x, y, x + lado, y, pincel);
-            lienzo.drawLine(x, y, x, y + lado, pincel);
-            lienzo.drawLine(x, y + lado, x + lado, y + lado, pincel);
-            lienzo.drawLine(x + lado, y, x + lado, y + lado, pincel);
-
-
-        }
+    }
+    public static void reDraw(View v){
+        v.invalidate();
     }
 }
