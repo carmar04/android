@@ -26,8 +26,6 @@ public class Pantalla1 extends AppCompatActivity {
 
         registerForContextMenu(imageView);
         registerForContextMenu(etiqueta);
-
-
     }
     //para crear menus en la parte de arriba de la aplicación
     public boolean onCreateOptionsMenu(Menu menu){
