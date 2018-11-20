@@ -44,7 +44,7 @@ public class Pantalla1 extends AppCompatActivity {
         spinner = (Spinner) findViewById(R.id.spinner);
         AdaptadorZonas miAdaptador = new AdaptadorZonas(this);
         spinner.setAdapter(miAdaptador);
-        spinner.setSelection(-1);
+        //spinner.setSelection(-1);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 indice = pos;

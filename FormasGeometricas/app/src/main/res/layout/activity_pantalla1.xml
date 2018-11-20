@@ -4,8 +4,48 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".Pantalla1">
 
+    <TextView
+        android:gravity="center"
+        android:text="Aplicación de calcular areas de figuras geometricas"
+        android:layout_width="match_parent"
+        android:layout_marginBottom="50px"
+        android:layout_height="50px" />
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"></Spinner>
+
+    <TextView
+        android:text="Introduzca la base:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <EditText
+        android:id="@+id/base"
+        android:inputType="number"
+        android:hint="..................."
+        android:layout_width="150px"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:text="Introduzca la altura:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <EditText
+        android:id="@+id/altura"
+        android:inputType="number"
+        android:hint="..................."
+        android:layout_width="150px"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:text="Calcular"
+        android:id="@+id/calcular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
 
 </LinearLayout>
