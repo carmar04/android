@@ -22,9 +22,9 @@ public class VistaJuego extends View {
 
 	// THREAD Y TIEMPO //
 	//Hilo encargado de procesar el tiempo
-	//private HiloJuego hiloJuego;
+	private HiloJuego hiloJuego;
 	//Tiempo que debe transcurrir para procesar cambios (ms)
-	private static int PERIODO_PROCESO = 50;
+	private static int PERIODO_PROCESO = 2;
 	//Momento en el que se realiza el ultimo proceso
 	private long ultimoProceso = 0;
 
@@ -50,6 +50,8 @@ public class VistaJuego extends View {
 		//BICI
 		graficoBici = contexto.getResources().getDrawable(R.drawable.bici);
 		bici = new Grafico(this, graficoBici);
+		hiloJuego = new HiloJuego();
+		hiloJuego.start();
 	}
 
 	//Al comenzar y dibujar por primera vez la pantalla del juego
@@ -73,6 +75,7 @@ public class VistaJuego extends View {
 		for (Grafico coche: Coches) {
 			coche.dibujaGrafico(canvas);
 		}
+		bici.dibujaGrafico(canvas);
 	}
 	protected synchronized void actualizaMovimiento() {
 		long ahora = System.currentTimeMillis();
@@ -99,6 +102,14 @@ public class VistaJuego extends View {
 			coche.incrementaPos();
 		}
 		ultimoProceso = ahora;
+	}
+	private class HiloJuego extends Thread {
+		@Override
+		public void run() {
+			while (true) {
+				actualizaMovimiento();
+			}
+		}
 	}
 }
 
