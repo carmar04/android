@@ -12,6 +12,7 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
     int mStackPosition = 1;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
         });
         if (savedInstanceState == null) {
             // aÃ±adir el primer fragment
-            Fragment newFragment = SimpleFragment.newInstance(mStackPosition);
+            Fragment newFragment = SimpleFragment.newInstance(mStackPosition, 0);
             FragmentTransaction ft = getFragmentManager().beginTransaction();
             ft.add(R.id.fragmentShow, newFragment).commit();
         } else {
@@ -41,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
     void addFragment() {
         mStackPosition++;
         // Instanciamos nuevo Fragment
-        Fragment newFragment = SimpleFragment.newInstance(mStackPosition);
+        Fragment newFragment = SimpleFragment.newInstance(mStackPosition,0);
         // Se aÃ±ade el Fragment a la actividad
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         ft.replace(R.id.fragmentShow, newFragment);
