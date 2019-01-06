@@ -4,16 +4,56 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".Pantalla2">
 
-    <TextView
-        android:id="@+id/textoFiguras"
+    <LinearLayout
+        android:layout_gravity="center"
+        android:orientation="horizontal"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_margin="20px"
+            android:id="@+id/textoFiguras1"
+            android:text="Figura elegida:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_margin="20px"
+            android:text="Text"
+            android:id="@+id/textoFiguras2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+    </LinearLayout>
 
     <ImageView
+        android:layout_gravity="center"
         android:id="@+id/imagenFiguras"
-        android:layout_width="100px"
-        android:layout_height="100px" />
+        android:layout_width="200px"
+        android:layout_height="200px" />
+
+    <LinearLayout
+        android:layout_margin="20px"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_margin="20px"
+            android:text="Area: "
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_margin="20px"
+            android:id="@+id/area"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 
 </LinearLayout>

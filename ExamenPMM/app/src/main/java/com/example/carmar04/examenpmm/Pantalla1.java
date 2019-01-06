@@ -34,6 +34,7 @@ public class Pantalla1 extends AppCompatActivity {
             new Coches("Leon","Seat",30, 0,0, false, false, false, false, R.drawable.leon1),
             new Coches("Fiesta","Ford",40, 0,0, false, false, false, false, R.drawable.fiesta1)
     };
+    public int REQUEST_CODE = 1;
     public Coches [] micoche;
     public int indice = 0;
     public Spinner spinner;
@@ -41,6 +42,7 @@ public class Pantalla1 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pantalla1);
+
         spinner = (Spinner) findViewById(R.id.spinner);
         AdaptadorZonas miAdaptador = new AdaptadorZonas(this);
         spinner.setAdapter(miAdaptador);
@@ -121,6 +123,25 @@ public class Pantalla1 extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Toast.makeText(getApplicationContext(),"Resultado correcto pantalla1.A", Toast.LENGTH_SHORT).show();
+        if (requestCode == REQUEST_CODE){
+            Toast.makeText(getApplicationContext(),"Resultado correcto pantalla1.B", Toast.LENGTH_SHORT).show();
+            if(resultCode == RESULT_OK){
+                Toast.makeText(getApplicationContext(),"Resultado correcto pantalla1", Toast.LENGTH_SHORT).show();
+                Bundle bundle = new Bundle();
+                bundle = getIntent().getExtras();
+
+                TextView horas = (TextView) findViewById(R.id.hora);
+                horas.setText(String.valueOf(bundle.getInt("hora")));
+                TextView minuto = (TextView) findViewById(R.id.minutos);
+                minuto.setText(String.valueOf(bundle.getInt("minutos")));
+
+            }
+        }
     }
 
     class AdaptadorZonas extends ArrayAdapter{

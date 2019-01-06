@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Pantalla1">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20px"
+        android:text="Seleccione un autor: "
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <Spinner
+        android:layout_margin="20px"
+        android:id="@+id/spinnerAutores"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+    </Spinner>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20px"
+        android:text="Seleccione un libro: "
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <Spinner
+        android:layout_margin="20px"
+        android:id="@+id/spinnerLibros"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+    </Spinner>
+
+
+
+</LinearLayout>

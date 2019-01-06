@@ -36,6 +36,7 @@ public class Pantalla1 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pantalla1);
 
+
         final EditText altura = (EditText) findViewById(R.id.altura);
         final EditText base = (EditText) findViewById(R.id.base);
         final Button calcular = (Button) findViewById(R.id.calcular);
@@ -70,6 +71,8 @@ public class Pantalla1 extends AppCompatActivity {
                     baseFlag = true;
                 }
                 if(alturaFlag && baseFlag){
+                    figuras[indice].setBase(Integer.parseInt(base.getText().toString()));
+                    figuras[indice].setAltura(Integer.parseInt(altura.getText().toString()));
                     Intent intent = new Intent(Pantalla1.this, Pantalla2.class);
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("Objeto", figuras[indice]);
