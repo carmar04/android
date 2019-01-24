@@ -45,8 +45,9 @@ public class Pantalla2 extends AppCompatActivity implements TimePickerDialog.OnT
         bundle.putInt("minutos", minutos);
         intent.putExtras(bundle);
         Toast.makeText(getApplicationContext(),"Resultado correcto pantalla2", Toast.LENGTH_SHORT).show();
-        setResult(RESULT_OK, intent);
-        startActivityForResult(intent, REQUEST_CODE);
+        setResult(minutos, RESULT_OK, intent);
+        finish();
+        //startActivityForResult(intent, REQUEST_CODE);
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)

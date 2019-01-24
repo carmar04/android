@@ -120,7 +120,7 @@ public class Pantalla1 extends AppCompatActivity {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("Objeto", coches[indice]);
                 intent.putExtras(bundle);
-                startActivity(intent);
+                startActivityForResult(REQUEST_CODE, intent);
             }
         });
     }
