@@ -39,15 +39,19 @@ public class Pantalla2 extends AppCompatActivity implements TimePickerDialog.OnT
         tiempo.setText("Hora: " + hourOfDay + ". Minutos: " + minute);
         hora = hourOfDay;
         minutos = minute;
-        Intent intent = new Intent(Pantalla2.this, Pantalla1.class);
+        Intent intent = new Intent();
         Bundle bundle = new Bundle();
         bundle.putInt("hora", hora);
         bundle.putInt("minutos", minutos);
         intent.putExtras(bundle);
         Toast.makeText(getApplicationContext(),"Resultado correcto pantalla2", Toast.LENGTH_SHORT).show();
+<<<<<<< HEAD
+        setResult(RESULT_OK, intent);
+=======
         setResult(minutos, RESULT_OK, intent);
         finish();
         //startActivityForResult(intent, REQUEST_CODE);
+>>>>>>> abb215fe6c3bee828aca63cfe61a6678cd9612b1
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -63,7 +67,6 @@ public class Pantalla2 extends AppCompatActivity implements TimePickerDialog.OnT
         final TextView precio = (TextView) findViewById(R.id.precio2);
         final ImageView imagen2 = (ImageView) findViewById(R.id.imagen2);
         final Button buttonPicker = (Button) findViewById(R.id.time);
-        final Button buttonVolver = (Button) findViewById(R.id.volver);
 
 
         buttonPicker.setOnClickListener(new View.OnClickListener() {
@@ -73,14 +76,6 @@ public class Pantalla2 extends AppCompatActivity implements TimePickerDialog.OnT
                 dialogFragment.show(getSupportFragmentManager(), "time picker");
             }
         });
-
-        buttonVolver.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
 
         zonaObjeto = (Coches) intent.getSerializableExtra("Objeto");
 

@@ -120,20 +120,21 @@ public class Pantalla1 extends AppCompatActivity {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("Objeto", coches[indice]);
                 intent.putExtras(bundle);
+<<<<<<< HEAD
+                startActivityForResult(intent, REQUEST_CODE);
+=======
                 startActivityForResult(REQUEST_CODE, intent);
+>>>>>>> abb215fe6c3bee828aca63cfe61a6678cd9612b1
             }
         });
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Toast.makeText(getApplicationContext(),"Resultado correcto pantalla1.A", Toast.LENGTH_SHORT).show();
         if (requestCode == REQUEST_CODE){
-            Toast.makeText(getApplicationContext(),"Resultado correcto pantalla1.B", Toast.LENGTH_SHORT).show();
             if(resultCode == RESULT_OK){
-                Toast.makeText(getApplicationContext(),"Resultado correcto pantalla1", Toast.LENGTH_SHORT).show();
                 Bundle bundle = new Bundle();
-                bundle = getIntent().getExtras();
+                bundle = data.getExtras();
 
                 TextView horas = (TextView) findViewById(R.id.hora);
                 horas.setText(String.valueOf(bundle.getInt("hora")));
