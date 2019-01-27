@@ -38,7 +38,4 @@ public class ClientesSQLiteHelper extends SQLiteOpenHelper {
 		//Creamos la nueva versi�n de la tabla
 		bd.execSQL(cadSQL);
 	}
-	public void insert(int numero){
-
-	}
 }

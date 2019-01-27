@@ -18,6 +18,11 @@ public class MainActivity extends AppCompatActivity {
     //Este codigo es para probar, no esta bien estructurado
     //c/Users/APPData(esta oculto)/local/Android/sdk adb. devices    -s emulator-5554 shell
 
+    ClientesSQLiteHelper cliBDh = new ClientesSQLiteHelper(this, "DBClientes", null, 1);
+
+    //Obtenemos referencia a la base de datos para poder modificarla.
+    SQLiteDatabase bd = cliBDh.getWritableDatabase();
+
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,10 +34,7 @@ public class MainActivity extends AppCompatActivity {
         final Cursor c;
         
         //Abrimos la base de datos en modo escritura
-        ClientesSQLiteHelper cliBDh = new ClientesSQLiteHelper(this, "DBClientes", null, 1);
 
-        //Obtenemos referencia a la base de datos para poder modificarla.
-        SQLiteDatabase bd = cliBDh.getWritableDatabase();
         
 
         //En caso de abrir de forma correcta la base de datos
@@ -46,7 +48,6 @@ public class MainActivity extends AppCompatActivity {
 
                 //Insert con metodo de la BD
                 ContentValues contentValues = new ContentValues();
-                contentValues.put("codigo", cont);
                 contentValues.put("nombre","Cliente" + cont);
                 contentValues.put("telefono",telefono);
                 bd.insert("Clientes",null,contentValues);

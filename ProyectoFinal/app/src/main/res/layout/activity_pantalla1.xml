@@ -36,6 +36,7 @@
             android:layout_height="wrap_content" />
 
         <EditText
+            android:id="@+id/UserInput"
             android:layout_width="169dp"
             android:layout_height="wrap_content" />
 
@@ -45,6 +46,8 @@
             android:layout_height="wrap_content" />
 
         <EditText
+            android:inputType="textPassword"
+            android:id="@+id/PasswordInput"
             android:layout_width="167dp"
             android:layout_height="wrap_content" />
 
