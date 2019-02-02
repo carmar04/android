@@ -1,6 +1,9 @@
 package com.example.carmar04.proyectofinal;
 
 import android.app.Activity;
+import android.app.DialogFragment;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
@@ -15,7 +18,16 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class Pantalla3 extends AppCompatActivity {
+import java.util.ArrayList;
+
+public class Pantalla3 extends AppCompatActivity implements dialog_fragment_purchase_product.sendingProduct {
+
+    ArrayList chosenProducts = new ArrayList();
+
+    @Override
+    public void sendProduct(Product product) {
+        chosenProducts.add(product);
+    }
 
     Product [] products = new Product[]{
             new Product("AMD Radeon RX580 GIGABYTE", "stock", 198.70,R.drawable.rx580gigabyte),
@@ -27,6 +39,8 @@ public class Pantalla3 extends AppCompatActivity {
             new Product("AMD Radeon RX64 GIGABYTE", "stock", 498.10,R.drawable.vega64gigabyte),
             new Product("NVIDIA GTX 1080 GIGABYTE", "stock", 530.70, R.drawable.gtx1080gigabyte),
     };
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,10 +54,15 @@ public class Pantalla3 extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Toast.makeText(getApplicationContext(), products[position].toString(), Toast.LENGTH_SHORT).show();
+                Product product;
+                product = products[position];
+                showDialog(product);
             }
         });
 
     }
+
+
     public class ProductAdapter extends ArrayAdapter{
         Activity context;
 
@@ -69,5 +88,16 @@ public class Pantalla3 extends AppCompatActivity {
 
             return convertView;
         }
+    }
+    void showDialog(Product product) {
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        Fragment prev = getFragmentManager().findFragmentByTag("NewPurchase");
+        if (prev != null) {
+            ft.remove(prev);
+        }
+        ft.addToBackStack(null);
+
+        DialogFragment dialogFragment = dialog_fragment_purchase_product.newInstance(product);
+        dialogFragment.show(ft,"NewPurchase");
     }
 }

@@ -85,14 +85,14 @@ public final class SQLSentences {
     );
     public static final String FILL_TABLE_PRODUCT =
             String.format("INSERT INTO %s (%s, %s, %s) VALUES " +
-                    "('AMD Radeon RX580 GIGABYTE', 'stock', 198.70), " +
-                    "('AMD Radeon RX580 ASUS', 'stock', 223.60,), " +
-                    "('AMD Radeon RX580 SAPPHIRE', 'stock', 198.70), " +
-                    "('NVIDIA GTX 1060 ASUS', 'stock', 270.70), " +
-                    "('NVIDIA GTX 1060 GIGABYTE', 'stock', 258.40), " +
-                    "('NVIDIA GTX 1060 MSI', 'stock', 298.70), " +
-                    "('AMD Radeon RX64 GIGABYTE', 'stock', 498.10), " +
-                    "('NVIDIA GTX 1080 GIGABYTE', 'stock', 530.70);",
+                            "('AMD Radeon RX580 GIGABYTE', 'stock', 198.70), " +
+                            "('AMD Radeon RX580 ASUS', 'stock', 223.60,), " +
+                            "('AMD Radeon RX580 SAPPHIRE', 'stock', 198.70), " +
+                            "('NVIDIA GTX 1060 ASUS', 'stock', 270.70), " +
+                            "('NVIDIA GTX 1060 GIGABYTE', 'stock', 258.40), " +
+                            "('NVIDIA GTX 1060 MSI', 'stock', 298.70), " +
+                            "('AMD Radeon RX64 GIGABYTE', 'stock', 498.10), " +
+                            "('NVIDIA GTX 1080 GIGABYTE', 'stock', 530.70);",
 
                     TABLE_PRODUCT,
                     TABLE_PRODUCT_NAME,
@@ -164,4 +164,3 @@ public final class SQLSentences {
         }
     }
 }
-
