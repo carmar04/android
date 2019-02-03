@@ -7,6 +7,7 @@
     android:layout_height="match_parent">
 
     <LinearLayout
+        android:layout_margin="30px"
         android:layout_width="217dp"
         android:layout_height="wrap_content"
         android:orientation="vertical">

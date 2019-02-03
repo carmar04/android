@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class User implements Serializable {
 
+    int UserId;
     String nickName;
     String mail;
     String password;
@@ -12,6 +13,13 @@ public class User implements Serializable {
         this.nickName = nickName;
         this.mail = mail;
         this.password = password;
+    }
+
+    public void setUserId(int UserId){
+        this.UserId = UserId;
+    }
+    public int getUserId(){
+        return this.UserId;
     }
 
     public String getNickName() {

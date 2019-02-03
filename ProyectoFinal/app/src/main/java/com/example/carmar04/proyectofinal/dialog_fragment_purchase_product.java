@@ -34,36 +34,43 @@ public class dialog_fragment_purchase_product extends DialogFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         product = (Product) getArguments().getSerializable("Product");
+        //product = (Product) getArguments().getSerializable("Product");
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dialog_fragment_purchase_product, container, false);
 
-        TextView productName = view.findViewById(R.id.ProductName);
-        TextView productStock = view.findViewById(R.id.ProductStock);
-        TextView productPrice = view.findViewById(R.id.ProductPrice);
-        ImageView productImage = view.findViewById(R.id.ProductImage);
+        TextView productName = view.findViewById(R.id.FragmentProductName);
+        TextView productStock = view.findViewById(R.id.FragmentProductStock);
+        TextView productPrice = view.findViewById(R.id.FragmentProductPrice);
+        ImageView productImage = view.findViewById(R.id.FragmentProductImage);
 
         Button buttonCancel = view.findViewById(R.id.FragmentButtonCancel);
         Button buttonAdd = view.findViewById(R.id.FragmentButtonAdd);
 
-        productName.setText(product.getProductName());
-        productStock.setText(product.getProductStock());
-        productPrice.setText(String.valueOf(product.getProductPrice()));
-        productImage.setImageResource(product.getProductImage());
+        if(product == null){
+            Toast.makeText(getContext(), "Product null", Toast.LENGTH_SHORT).show();
+        }else {
+
+            productName.setText(product.getProductName());
+            productStock.setText(product.getProductStock());
+            productPrice.setText(String.valueOf(product.getProductPrice()));
+            productImage.setImageResource(product.getProductImage());
+
+            buttonAdd.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    sendingProduct.sendProduct(product);
+                    getDialog().dismiss();
+                }
+            });
+        }
 
         buttonCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getDialog().dismiss();
-            }
-        });
-
-        buttonAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                sendingProduct.sendProduct(product);
                 getDialog().dismiss();
             }
         });

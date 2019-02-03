@@ -4,11 +4,16 @@ import android.app.Activity;
 import android.app.DialogFragment;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.Intent;
+import android.database.Cursor;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -23,29 +28,34 @@ import java.util.ArrayList;
 public class Pantalla3 extends AppCompatActivity implements dialog_fragment_purchase_product.sendingProduct {
 
     ArrayList chosenProducts = new ArrayList();
+    ArrayList <Product> products = new ArrayList();
+    ArrayList product = new ArrayList();
+    User user;
 
     @Override
     public void sendProduct(Product product) {
         chosenProducts.add(product);
     }
 
-    Product [] products = new Product[]{
-            new Product("AMD Radeon RX580 GIGABYTE", "stock", 198.70,R.drawable.rx580gigabyte),
-            new Product("AMD Radeon RX580 ASUS", "stock", 223.60, R.drawable.rx580asus),
-            new Product("AMD Radeon RX580 SAPPHIRE", "stock", 198.70, R.drawable.rx580sapphire),
-            new Product("NVIDIA GTX 1060 ASUS", "stock", 270.70, R.drawable.gtx1060asus),
-            new Product("NVIDIA GTX 1060 GIGABYTE", "stock", 258.40, R.drawable.gtx1060gigabyte),
-            new Product("NVIDIA GTX 1060 MSI", "stock", 298.70, R.drawable.gtx1060msi),
-            new Product("AMD Radeon RX64 GIGABYTE", "stock", 498.10,R.drawable.vega64gigabyte),
-            new Product("NVIDIA GTX 1080 GIGABYTE", "stock", 530.70, R.drawable.gtx1080gigabyte),
-    };
-
-
+    SQLSentences.DatabaseHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pantalla3);
+        Intent intent = getIntent();
+        product = intent.getParcelableArrayListExtra("Products");
+        user = (User) intent.getSerializableExtra("UserRegistered");
+
+        dbHelper = new SQLSentences.DatabaseHelper(this);
+        dbHelper.open();
+
+        for(int i = 0; i < product.size(); i++){
+            products.add((Product) product.get(i));
+        }
+
+        TextView UserTextView = findViewById(R.id.UserId);
+        UserTextView.setText(user.getNickName());
 
         ListView ProductListView = (ListView) findViewById(R.id.ListComponents);
         ProductAdapter productAdapter = new ProductAdapter(this);
@@ -53,12 +63,31 @@ public class Pantalla3 extends AppCompatActivity implements dialog_fragment_purc
         ProductListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getApplicationContext(), products[position].toString(), Toast.LENGTH_SHORT).show();
-                Product product;
-                product = products[position];
+                //Toast.makeText(getApplicationContext(), products[position].toString(), Toast.LENGTH_SHORT).show();
+                Product product = new Product(products.get(position).getProductId(),
+                        products.get(position).getProductName(),products.get(position).getProductStock(),
+                        products.get(position).getProductPrice(), products.get(position).getProductImage());
                 showDialog(product);
             }
         });
+        Cursor cursor2;
+        cursor2 = dbHelper.getItems("SELECT nickName,id FROM Users",null);
+
+        if(cursor2 != null) {
+            if (cursor2.moveToFirst()) {
+                String user = "";
+                int id = 0;
+                do {
+                    user = cursor2.getString(0);
+                    id = cursor2.getInt(1);
+                    Toast.makeText(getApplicationContext(), user + " id = "+ String.valueOf(id), Toast.LENGTH_SHORT).show();
+
+                } while (cursor2.moveToNext());
+                cursor2.close();
+            }
+        }else{
+            Toast.makeText(getApplicationContext(), "Cursor User nulo", Toast.LENGTH_SHORT).show();
+        }
 
     }
 
@@ -78,15 +107,47 @@ public class Pantalla3 extends AppCompatActivity implements dialog_fragment_purc
 
             TextView productName = (TextView) convertView.findViewById(R.id.ProductName);
             TextView productStock = (TextView) convertView.findViewById(R.id.ProductStock);
-            TextView prodcutPrice = (TextView) convertView.findViewById(R.id.ProductPrice);
+            TextView productPrice = (TextView) convertView.findViewById(R.id.ProductPrice);
             ImageView productImage = (ImageView) convertView.findViewById(R.id.ProductImage);
 
-            productName.setText(products[position].getProductName());
-            productStock.setText(products[position].getProductStock());
-            prodcutPrice.setText(String.valueOf(products[position].getProductPrice()));
-            productImage.setImageDrawable(getDrawable(products[position].getProductImage()));
+            productName.setText(products.get(position).getProductName());
+            productStock.setText(products.get(position).getProductStock());
+            productPrice.setText(String.valueOf(products.get(position).getProductPrice()));
+            productImage.setImageDrawable(getDrawable(products.get(position).getProductImage()));
 
             return convertView;
+        }
+    }
+    public boolean onCreateOptionsMenu(Menu menu){
+        MenuInflater inflate  = getMenuInflater();
+        inflate.inflate(R.menu.menu_principal, menu);
+        return true;
+    }
+    //recoge los valores por tocar los diferentes botones del menú
+    public boolean onOptionsItemSelected(MenuItem item){
+        String mensaje = "";
+        switch (item.getItemId()){
+            case R.id.MenuOption1:
+                Intent intentOption1 = new Intent(Pantalla3.this, BasketScreen.class);
+                Bundle bundleOption1 = new Bundle();
+                bundleOption1.putSerializable("User", user);
+                bundleOption1.putParcelableArrayList("ChosenProducts", chosenProducts);
+                intentOption1.putExtras(bundleOption1);
+                startActivity(intentOption1);
+                return true;
+            case R.id.MenuOption2:
+                Intent intentOption2 = new Intent(Pantalla3.this, OrderScreen.class);
+                Bundle bundleOption2 = new Bundle();
+                bundleOption2.putSerializable("User", user);
+                intentOption2.putExtras(bundleOption2);
+                startActivity(intentOption2);
+
+                return true;
+            case R.id.MenuOption3:
+                //Intent intentOption3 = new Intent(Pantalla3.this,);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
     void showDialog(Product product) {

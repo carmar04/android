@@ -17,7 +17,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".Pantalla2" />
-        <activity android:name=".Pantalla3"></activity>
+        <activity android:name=".Pantalla3" />
+        <activity android:name=".BasketScreen" />
+        <activity android:name=".OrderScreen"></activity>
     </application>
 
 </manifest>
