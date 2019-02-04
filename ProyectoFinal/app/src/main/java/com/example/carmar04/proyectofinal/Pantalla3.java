@@ -30,6 +30,8 @@ public class Pantalla3 extends AppCompatActivity implements dialog_fragment_purc
     ArrayList chosenProducts = new ArrayList();
     ArrayList <Product> products = new ArrayList();
     ArrayList product = new ArrayList();
+    ArrayList <Integer> images = new ArrayList();
+
     User user;
 
     @Override
@@ -44,14 +46,47 @@ public class Pantalla3 extends AppCompatActivity implements dialog_fragment_purc
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pantalla3);
         Intent intent = getIntent();
-        product = intent.getParcelableArrayListExtra("Products");
+        //product = intent.getParcelableArrayListExtra("Products");
         user = (User) intent.getSerializableExtra("UserRegistered");
+        //chosenProducts = intent.getParcelableArrayListExtra("ChosenProducts");
+
+        images.add(R.drawable.rx580gigabyte);
+        images.add(R.drawable.rx580asus);
+        images.add(R.drawable.rx580sapphire);
+        images.add(R.drawable.gtx1060asus);
+        images.add(R.drawable.gtx1060gigabyte);
+        images.add(R.drawable.gtx1060msi);
+        images.add(R.drawable.vega64gigabyte);
+        images.add(R.drawable.gtx1080gigabyte);
 
         dbHelper = new SQLSentences.DatabaseHelper(this);
         dbHelper.open();
 
-        for(int i = 0; i < product.size(); i++){
-            products.add((Product) product.get(i));
+        //if(product.size() > 0) {
+            //for (int i = 0; i < product.size(); i++) {
+                //products.add((Product) product.get(i));
+            //}
+        //}
+        Cursor cursor1;
+        cursor1 = dbHelper.getItems("SELECT id, name, stock, price FROM Products", null);
+
+        if(cursor1 != null) {
+            if (cursor1.moveToFirst()) {
+                int index = 1;
+                do {
+                    int cursor = cursor1.getInt(0);
+                    if (cursor == index) {
+                        products.add(new Product(cursor1.getInt(0), cursor1.getString(1),
+                                cursor1.getString(2), cursor1.getDouble(3), images.get(index-1)));
+                    }
+                    index++;
+
+                } while (cursor1.moveToNext());
+            }else{
+                Toast.makeText(getApplicationContext(), "no se mueve Cursor Product nulo", Toast.LENGTH_SHORT).show();
+            }
+        }else{
+            Toast.makeText(getApplicationContext(), "Cursor Product nulo", Toast.LENGTH_SHORT).show();
         }
 
         TextView UserTextView = findViewById(R.id.UserId);

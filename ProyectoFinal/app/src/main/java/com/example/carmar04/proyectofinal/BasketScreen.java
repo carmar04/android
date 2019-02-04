@@ -34,8 +34,10 @@ public class BasketScreen extends AppCompatActivity {
         Intent intent = getIntent();
         chosenProducts = intent.getParcelableArrayListExtra("ChosenProducts");
         user = (User) intent.getSerializableExtra("User");
-        for(int i = 0; i < chosenProducts.size(); i++){
-            chosenProduct.add((Product) chosenProducts.get(i));
+        if(chosenProducts.size() > 0) {
+            for (int i = 0; i < chosenProducts.size(); i++) {
+                chosenProduct.add((Product) chosenProducts.get(i));
+            }
         }
         TextView textTotalAmount = findViewById(R.id.BasketTotalAmount);
         TextView textProductQuantity = findViewById(R.id.BasketProductQuantity);
@@ -56,6 +58,10 @@ public class BasketScreen extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(BasketScreen.this, Pantalla3.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("UserRegistered", user);
+                bundle.putParcelableArrayList("ChosenProducts", chosenProducts);
+                intent.putExtras(bundle);
                 startActivity(intent);
             }
         });
@@ -115,7 +121,9 @@ public class BasketScreen extends AppCompatActivity {
 
                 Intent intent = new Intent(BasketScreen.this, OrderScreen.class);
                 Bundle bundle = new Bundle();
+                ArrayList products = new ArrayList();
                 bundle.putSerializable("User", user);
+                bundle.putParcelableArrayList("ChosenProducts", products);
                 intent.putExtras(bundle);
                 startActivity(intent);
             }

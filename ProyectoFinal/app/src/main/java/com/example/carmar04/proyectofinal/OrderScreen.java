@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -20,6 +21,7 @@ import java.util.ArrayList;
 
 public class OrderScreen extends AppCompatActivity {
 
+    ArrayList chosenProducts = new ArrayList();
     SQLSentences.DatabaseHelper dbHelper;
     ArrayList <Orders> Orders = new ArrayList();
     User user;
@@ -29,11 +31,25 @@ public class OrderScreen extends AppCompatActivity {
         setContentView(R.layout.activity_order_screen);
         Intent intent = getIntent();
         user = (User) intent.getSerializableExtra("User");
+        chosenProducts = intent.getParcelableArrayListExtra("ChosenProducts");
         dbHelper = new SQLSentences.DatabaseHelper(this);
         dbHelper.open();
 
         TextView OrderScreenUser = findViewById(R.id.OrderScreenUser);
         OrderScreenUser.setText(user.getNickName() + " " + String.valueOf(user.getUserId()));
+
+        Button buttonOrderScreenBack = findViewById(R.id.OrderScreenButtonBack);
+        buttonOrderScreenBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(OrderScreen.this, Pantalla3.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("UserRegistered", user);
+                bundle.putParcelableArrayList("ChosenProducts", chosenProducts);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
 
         String [] userName = {user.getNickName()};
         int userId = 0;

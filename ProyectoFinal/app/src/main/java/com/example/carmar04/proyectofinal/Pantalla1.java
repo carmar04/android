@@ -151,7 +151,7 @@ public class Pantalla1 extends AppCompatActivity implements dialog_fragment_new_
                     Intent intent = new Intent(Pantalla1.this, Pantalla3.class);
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("UserRegistered", userRegistered);
-                    bundle.putParcelableArrayList("Products", products);
+                    //bundle.putParcelableArrayList("Products", products);
                     intent.putExtras(bundle);
                     startActivity(intent);
                 }else{
