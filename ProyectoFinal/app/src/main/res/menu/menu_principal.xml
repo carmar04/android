@@ -10,7 +10,7 @@
         />
     <item
         android:id="@+id/MenuOption3"
-        android:title="Cuenta"
+        android:title="Acerca de"
 
     />
 </menu>

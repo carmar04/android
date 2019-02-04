@@ -75,9 +75,10 @@
     </LinearLayout>
 
     <TextView
-        android:text="________________________________________________"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="______________________________________________________"
+        android:textStyle="bold" />
 
 
 

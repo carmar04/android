@@ -47,8 +47,15 @@ public class Pantalla3 extends AppCompatActivity implements dialog_fragment_purc
         setContentView(R.layout.activity_pantalla3);
         Intent intent = getIntent();
         //product = intent.getParcelableArrayListExtra("Products");
+        if(chosenProducts == null){
+            chosenProducts = new ArrayList();
+        }
         user = (User) intent.getSerializableExtra("UserRegistered");
-        //chosenProducts = intent.getParcelableArrayListExtra("ChosenProducts");
+        chosenProducts = intent.getParcelableArrayListExtra("ChosenProducts");
+        if(chosenProducts == null){
+            chosenProducts = new ArrayList();
+        }
+
 
         images.add(R.drawable.rx580gigabyte);
         images.add(R.drawable.rx580asus);
@@ -174,13 +181,13 @@ public class Pantalla3 extends AppCompatActivity implements dialog_fragment_purc
                 Intent intentOption2 = new Intent(Pantalla3.this, OrderScreen.class);
                 Bundle bundleOption2 = new Bundle();
                 bundleOption2.putSerializable("User", user);
+                bundleOption2.putParcelableArrayList("ChosenProducts", chosenProducts);
                 intentOption2.putExtras(bundleOption2);
                 startActivity(intentOption2);
 
                 return true;
             case R.id.MenuOption3:
-                //Intent intentOption3 = new Intent(Pantalla3.this,);
-                return true;
+                Toast.makeText(getApplicationContext(), "Autor: @Carles Soro 2DAM", Toast.LENGTH_SHORT).show();
             default:
                 return super.onOptionsItemSelected(item);
         }

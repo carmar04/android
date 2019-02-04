@@ -22,9 +22,10 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:text="Usuario: "
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="Usuario: "
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/OrderScreenUser"
@@ -40,12 +41,24 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:text="Descripción de los pedidos: "
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="Descripción de los pedidos: "
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/OrderScreenDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="___________________________________________________"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 

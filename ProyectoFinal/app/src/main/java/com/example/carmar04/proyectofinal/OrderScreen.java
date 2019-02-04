@@ -36,7 +36,7 @@ public class OrderScreen extends AppCompatActivity {
         dbHelper.open();
 
         TextView OrderScreenUser = findViewById(R.id.OrderScreenUser);
-        OrderScreenUser.setText(user.getNickName() + " " + String.valueOf(user.getUserId()));
+        OrderScreenUser.setText(user.getNickName());
 
         Button buttonOrderScreenBack = findViewById(R.id.OrderScreenButtonBack);
         buttonOrderScreenBack.setOnClickListener(new View.OnClickListener() {
@@ -50,6 +50,7 @@ public class OrderScreen extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
 
         String [] userName = {user.getNickName()};
         int userId = 0;

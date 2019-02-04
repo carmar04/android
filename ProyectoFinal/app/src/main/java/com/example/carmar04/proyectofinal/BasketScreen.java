@@ -1,6 +1,9 @@
 package com.example.carmar04.proyectofinal;
 
 import android.app.Activity;
+import android.app.DialogFragment;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Build;
@@ -11,6 +14,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -20,12 +24,32 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class BasketScreen extends AppCompatActivity {
+public class BasketScreen extends AppCompatActivity implements dialog_fragment_dismiss_product.OnDismissedProduct {
 
     ArrayList chosenProducts = new ArrayList();
     ArrayList <Product> chosenProduct = new ArrayList();
     User user;
     SQLSentences.DatabaseHelper dbHelper;
+    ListView BasketListView;
+    ProductAdapter productAdapter;
+    TextView textTotalAmount;
+    TextView textProductQuantity;
+    Button ButtonPurchase;
+    boolean checker = false;
+
+    @Override
+    public void dismissProduct(int position) {
+        chosenProduct.remove(position);
+        chosenProducts.remove(position);
+        BasketListView.setAdapter(productAdapter);
+        textTotalAmount.setText(String.valueOf(totalAmount(chosenProducts)));
+        textProductQuantity.setText(productQuantity(chosenProducts));
+        if(chosenProduct.size() == 0){
+            ButtonPurchase.setEnabled(false);
+        }else{
+            ButtonPurchase.setEnabled(true);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,20 +63,33 @@ public class BasketScreen extends AppCompatActivity {
                 chosenProduct.add((Product) chosenProducts.get(i));
             }
         }
-        TextView textTotalAmount = findViewById(R.id.BasketTotalAmount);
-        TextView textProductQuantity = findViewById(R.id.BasketProductQuantity);
+        TextView userOrder = findViewById(R.id.OrderUser);
+        userOrder.setText(user.getNickName());
+
+
+
+
+        textTotalAmount = findViewById(R.id.BasketTotalAmount);
+        textProductQuantity = findViewById(R.id.BasketProductQuantity);
         textTotalAmount.setText(String.valueOf(totalAmount(chosenProduct)));
         textProductQuantity.setText(productQuantity(chosenProduct));
 
         dbHelper = new SQLSentences.DatabaseHelper(this);
         dbHelper.open();
 
-        ListView BasketListView = findViewById(R.id.BasketListView);
-        ProductAdapter productAdapter = new ProductAdapter(this);
+        BasketListView = findViewById(R.id.BasketListView);
+        productAdapter = new ProductAdapter(this);
         BasketListView.setAdapter(productAdapter);
 
+        BasketListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                showDialogDismiss(position);
+            }
+        });
+
         Button ButtonBack = findViewById(R.id.BasketButtonBack);
-        Button ButtonPurchase = findViewById(R.id.BasketButtonPurchase);
+        ButtonPurchase = findViewById(R.id.BasketButtonPurchase);
 
         ButtonBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,6 +102,9 @@ public class BasketScreen extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        if(chosenProduct.size() == 0){
+            ButtonPurchase.setEnabled(false);
+        }
 
         ButtonPurchase.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,6 +169,9 @@ public class BasketScreen extends AppCompatActivity {
             }
         });
     }
+
+
+
     public class ProductAdapter extends ArrayAdapter {
         Activity context;
 
@@ -172,5 +215,16 @@ public class BasketScreen extends AppCompatActivity {
             quantity = "0 articulos";
         }
         return quantity;
+    }
+    void showDialogDismiss(int position) {
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        Fragment prev = getFragmentManager().findFragmentByTag("NewPurchase");
+        if (prev != null) {
+            ft.remove(prev);
+        }
+        ft.addToBackStack(null);
+
+        DialogFragment dialogFragment = dialog_fragment_dismiss_product.newInstance(position);
+        dialogFragment.show(ft,"NewPurchase");
     }
 }
