@@ -34,6 +34,7 @@ public class dialog_fragment_dismiss_product extends DialogFragment {
         dialog_fragment_dismiss_product dialog_fragment_dismiss_product = new dialog_fragment_dismiss_product();
         Bundle args = new Bundle();
         args.putInt("ChosenProductPosition", position);
+        //args.putParcelableArrayList("products", products);
         dialog_fragment_dismiss_product.setArguments(args);
         return dialog_fragment_dismiss_product;
     }

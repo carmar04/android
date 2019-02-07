@@ -77,7 +77,8 @@ public class dialog_fragment_new_user extends DialogFragment {
                 String mail = "";
 
                 if(nickNameInput.equalsIgnoreCase("") || passwordInput.equalsIgnoreCase("")){
-                    Toast.makeText(getContext(), "You have to insert a nickanem and a password", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "You have to insert a nickname and a password", Toast.LENGTH_SHORT).show();
+                    checker = false;
                     UserInput.setText("");
                     PasswordInput.setText("");
                 }
